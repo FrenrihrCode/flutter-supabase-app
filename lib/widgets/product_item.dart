@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_store/models/product.dart';
+import 'package:supabase_store/screens/product_detail.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
@@ -10,23 +11,28 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridTile(
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Theme.of(context).colorScheme.background,
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 5.0,
-                spreadRadius: 0.0,
-                offset: Offset(2.5, 2.5), // shadow direction: bottom right
-              )
-            ],
-          ),
-          child: Image.network(
-            product.img,
-            fit: BoxFit.cover,
-          ),
-        ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Theme.of(context).colorScheme.background,
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 5.0,
+                  spreadRadius: 0.0,
+                  offset: Offset(2.5, 2.5), // shadow direction: bottom right
+                )
+              ],
+            ),
+            child: GestureDetector(
+              onTap: () => {
+                Navigator.of(context).pushNamed(ProductDetailScreen.routeName,
+                    arguments: product.id)
+              },
+              child: Image.network(
+                product.img,
+                fit: BoxFit.cover,
+              ),
+            )),
         footer: ClipRRect(
           borderRadius:
               const BorderRadius.vertical(bottom: Radius.circular(20)),
