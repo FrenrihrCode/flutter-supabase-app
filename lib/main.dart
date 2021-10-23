@@ -16,21 +16,23 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'shopApp',
         theme: ThemeData(
-            splashColor: const Color(0xffcdb4db),
-            colorScheme: const ColorScheme(
-                primary: Color(0xffcdb4db),
-                primaryVariant: Color(0xffffafcc),
-                secondary: Color(0xffbde0fe),
-                secondaryVariant: Color(0xffa2d2ff),
-                error: Color(0xffb00020),
-                background: Colors.white,
-                surface: Colors.white,
-                brightness: Brightness.light,
-                onPrimary: Colors.black,
-                onSecondary: Colors.black,
-                onBackground: Colors.black,
-                onSurface: Colors.black,
-                onError: Colors.white)),
+          splashColor: const Color(0xffcdb4db),
+          colorScheme: const ColorScheme(
+              primary: Color(0xffcdb4db),
+              primaryVariant: Color(0xffffafcc),
+              secondary: Color(0xffbde0fe),
+              secondaryVariant: Color(0xffa2d2ff),
+              error: Color(0xffb00020),
+              background: Colors.white,
+              surface: Colors.white,
+              brightness: Brightness.light,
+              onPrimary: Colors.black,
+              onSecondary: Colors.black,
+              onBackground: Colors.black,
+              onSurface: Colors.black,
+              onError: Colors.white),
+          cardColor: const Color(0xffe9e9e9),
+        ),
         home: const ProductOverviewScreeen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => const ProductDetailScreen()

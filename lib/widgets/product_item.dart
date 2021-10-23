@@ -10,49 +10,53 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridTile(
-        child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Theme.of(context).colorScheme.background,
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 5.0,
-                  spreadRadius: 0.0,
-                  offset: Offset(2.5, 2.5), // shadow direction: bottom right
-                )
-              ],
-            ),
-            child: GestureDetector(
-              onTap: () => {
-                Navigator.of(context).pushNamed(ProductDetailScreen.routeName,
-                    arguments: product.id)
-              },
-              child: Image.network(
-                product.img,
-                fit: BoxFit.cover,
+      child: Container(
+          padding: const EdgeInsets.only(bottom: 70),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Theme.of(context).colorScheme.background,
+            boxShadow: [
+              const BoxShadow(
+                color: Colors.white,
+                blurRadius: 7.5,
+                offset: Offset(-2, -2),
               ),
-            )),
-        footer: ClipRRect(
-          borderRadius:
-              const BorderRadius.vertical(bottom: Radius.circular(20)),
-          child: GridTileBar(
-            backgroundColor: Colors.black87,
-            title: Text(
-              product.name,
-              textAlign: TextAlign.center,
-            ),
-            leading: IconButton(
-              color: Theme.of(context).colorScheme.primaryVariant,
-              icon: const Icon(Icons.favorite),
-              onPressed: () => {},
-            ),
-            trailing: IconButton(
-              color: Theme.of(context).colorScheme.secondaryVariant,
-              icon: const Icon(Icons.shopping_cart),
-              onPressed: () => {},
-            ),
+              BoxShadow(
+                color: Theme.of(context).cardColor,
+                blurRadius: 7.5,
+                offset: const Offset(2, 2),
+              )
+            ],
           ),
-        ));
+          child: GestureDetector(
+            onTap: () => {
+              Navigator.of(context).pushNamed(ProductDetailScreen.routeName,
+                  arguments: product.id)
+            },
+            child: Image.network(
+              product.img,
+              fit: BoxFit.contain,
+            ),
+          )),
+      footer: GridTileBar(
+        backgroundColor: Colors.transparent,
+        title: Text(
+          product.name,
+          textAlign: TextAlign.start,
+          style: const TextStyle(color: Colors.grey, fontSize: 14),
+        ),
+        subtitle: Text(
+          "S/. ${product.price.toStringAsFixed(2)}",
+          textAlign: TextAlign.start,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        trailing: IconButton(
+          color: Theme.of(context).colorScheme.secondaryVariant,
+          icon: const Icon(Icons.shopping_cart),
+          onPressed: () => {},
+        ),
+      ),
+    );
   }
 }
