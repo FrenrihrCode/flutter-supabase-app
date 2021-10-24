@@ -32,6 +32,18 @@ class MyApp extends StatelessWidget {
               onSurface: Colors.black,
               onError: Colors.white),
           cardColor: const Color(0xffe9e9e9),
+          textTheme: const TextTheme(
+            headline1: TextStyle(
+                color: Color(0xFF2C2B2D),
+                fontSize: 21,
+                fontWeight: FontWeight.bold),
+            headline2: TextStyle(color: Colors.grey, fontSize: 14),
+            bodyText1: TextStyle(fontSize: 14.0),
+            bodyText2: TextStyle(fontSize: 14.0),
+            caption: TextStyle(fontSize: 14.0),
+            button: TextStyle(
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
         home: const ProductOverviewScreeen(),
         routes: {

@@ -13,19 +13,15 @@ class ProductItem extends StatelessWidget {
       child: Container(
           padding: const EdgeInsets.only(bottom: 70),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(25),
             color: Theme.of(context).colorScheme.background,
-            boxShadow: [
-              const BoxShadow(
-                color: Colors.white,
-                blurRadius: 7.5,
-                offset: Offset(-2, -2),
-              ),
+            boxShadow: const [
               BoxShadow(
-                color: Theme.of(context).cardColor,
-                blurRadius: 7.5,
-                offset: const Offset(2, 2),
-              )
+                  offset: Offset(3, 3), blurRadius: 5.0, color: Colors.black12),
+              BoxShadow(
+                  offset: Offset(-3, -3),
+                  blurRadius: 5.0,
+                  color: Colors.white70),
             ],
           ),
           child: GestureDetector(
@@ -43,16 +39,13 @@ class ProductItem extends StatelessWidget {
         title: Text(
           product.name,
           textAlign: TextAlign.start,
-          style: const TextStyle(color: Colors.grey, fontSize: 14),
+          style: Theme.of(context).textTheme.headline2,
         ),
-        subtitle: Text(
-          "S/. ${product.price.toStringAsFixed(2)}",
-          textAlign: TextAlign.start,
-          style: const TextStyle(
-              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+        subtitle: Text("S/. ${product.price.toStringAsFixed(2)}",
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.headline1),
         trailing: IconButton(
-          color: Theme.of(context).colorScheme.secondaryVariant,
+          color: Theme.of(context).colorScheme.primary,
           icon: const Icon(Icons.shopping_cart),
           onPressed: () => {},
         ),
