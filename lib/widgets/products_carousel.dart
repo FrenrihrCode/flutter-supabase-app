@@ -14,16 +14,17 @@ class ProductsCarousel extends StatelessWidget {
 
     return CarouselSlider(
       items: productList.map((product) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: ProductItem(product: product),
-        );
+        return Builder(
+            builder: (BuildContext builder) => Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: ProductItem(product: product),
+                ));
       }).toList(),
       options: CarouselOptions(
-        enlargeCenterPage: true,
-        aspectRatio: 2 / 1.5,
-        viewportFraction: 0.55,
-      ),
+          enlargeCenterPage: true,
+          aspectRatio: 2 / 1.5,
+          viewportFraction: 0.55,
+          height: 250),
     );
   }
 }

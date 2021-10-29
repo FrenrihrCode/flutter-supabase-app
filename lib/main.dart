@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_store/providers/cart_provider.dart';
 import 'package:supabase_store/providers/product_provider.dart';
+import 'package:supabase_store/screens/cart_detail.dart';
 import 'package:supabase_store/screens/product_detail.dart';
 import 'package:supabase_store/screens/products_overview.dart';
 
@@ -11,8 +14,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ProductProvider(),
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider())
+      ],
       child: MaterialApp(
         title: 'shopApp',
         theme: ThemeData(
@@ -47,7 +57,10 @@ class MyApp extends StatelessWidget {
         ),
         home: const ProductOverviewScreeen(),
         routes: {
-          ProductDetailScreen.routeName: (ctx) => const ProductDetailScreen()
+          ProductOverviewScreeen.routeName: (ctx) =>
+              const ProductOverviewScreeen(),
+          ProductDetailScreen.routeName: (ctx) => const ProductDetailScreen(),
+          CartDetailScreen.routeName: (ctx) => const CartDetailScreen()
         },
       ),
     );

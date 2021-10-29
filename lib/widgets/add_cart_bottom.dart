@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:supabase_store/providers/cart_provider.dart';
 
 class AddToCartBottom extends StatelessWidget {
   final int productId;
-  const AddToCartBottom({Key? key, required this.productId}) : super(key: key);
+  final String name;
+  final double price;
+  final String img;
+
+  const AddToCartBottom(
+      {Key? key,
+      required this.productId,
+      required this.name,
+      required this.price,
+      required this.img})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +41,13 @@ class AddToCartBottom extends StatelessWidget {
               ],
             ),
             child: TextButton(
-              onPressed: () => {},
+              onPressed: () {
+                context
+                    .read<CartProvider>()
+                    .addItemToCart(productId, name, price, 1, img);
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Producto añadido a tu lista de pedidos.")));
+              },
               child: Text(
                 "+ Añadir al carrito",
                 style: Theme.of(context).textTheme.button,
@@ -53,7 +71,14 @@ class AddToCartBottom extends StatelessWidget {
               ],
             ),
             child: IconButton(
-                onPressed: () => {},
+                onPressed: () {
+                  context
+                      .read<CartProvider>()
+                      .addItemToCart(productId, name, price, 1, img);
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content:
+                          Text("Producto añadido a tu lista de pedidos.")));
+                },
                 iconSize: 36,
                 padding: const EdgeInsets.all(12),
                 color: Theme.of(context).colorScheme.background,

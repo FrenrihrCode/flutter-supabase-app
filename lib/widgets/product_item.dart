@@ -44,11 +44,13 @@ class ProductItem extends StatelessWidget {
         subtitle: Text("S/. ${product.price.toStringAsFixed(2)}",
             textAlign: TextAlign.start,
             style: Theme.of(context).textTheme.headline1),
+        /*
         trailing: IconButton(
           color: Theme.of(context).colorScheme.primary,
           icon: const Icon(Icons.shopping_cart),
           onPressed: () => {},
         ),
+        */
       ),
     );
   }

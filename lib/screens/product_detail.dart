@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:supabase_store/models/product.dart';
 import 'package:supabase_store/providers/product_provider.dart';
 import 'package:supabase_store/widgets/add_cart_bottom.dart';
-import 'package:supabase_store/widgets/colors_button_selector.dart';
+import 'package:supabase_store/widgets/product_detail_description.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const String routeName = "/product-detail";
@@ -49,53 +49,10 @@ class ProductDetailScreen extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                product.name,
-                                style: Theme.of(context).textTheme.headline1,
-                              ),
-                              Text(product.category,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2
-                                      ?.copyWith(fontSize: 16)),
-                              const ColorsButtonSelector()
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 35),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(25)),
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(-1, 5),
-                                  blurRadius: 5.0,
-                                  color: Colors.black12),
-                              BoxShadow(
-                                  offset: Offset(-5, -5),
-                                  blurRadius: 5.0,
-                                  color: Colors.white70),
-                            ],
-                          ),
-                          child: Text("S/. ${product.price.toStringAsFixed(2)}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  ?.copyWith(fontSize: 24)),
-                        )
-                      ],
-                    ),
+                    ProductDetailDescription(
+                        category: product.category,
+                        name: product.name,
+                        price: product.price),
                     Container(
                       padding: const EdgeInsets.all(20),
                       child: Text(
@@ -104,7 +61,12 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    AddToCartBottom(productId: productId)
+                    AddToCartBottom(
+                      productId: product.id,
+                      name: product.name,
+                      price: product.price,
+                      img: product.img,
+                    )
                   ],
                 ),
               ),

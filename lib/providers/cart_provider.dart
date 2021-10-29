@@ -1,42 +1,73 @@
 import 'package:flutter/material.dart';
 
 class CartItem {
-  final String id;
+  final int productId;
   final String name;
   final double pricePerProduct;
   final int quantity;
+  final String img;
 
   CartItem(
-      {required this.id,
+      {required this.productId,
       required this.name,
       required this.pricePerProduct,
-      required this.quantity});
+      required this.quantity,
+      required this.img});
 }
 
-class Cart with ChangeNotifier {
+class CartProvider with ChangeNotifier {
   final Map<int, CartItem> _cart = {};
 
   Map<int, CartItem> get cart {
     return {..._cart};
   }
 
-  void addItemToCart(int productId, String name, double price, int quantity) {
+  int get itemCount {
+    int count = 0;
+    _cart.forEach((key, value) {
+      count += value.quantity;
+    });
+    return count;
+  }
+
+  void addItemToCart(
+      int productId, String name, double price, int quantity, String img) {
     if (_cart.containsKey(productId)) {
       _cart.update(
           productId,
           (value) => CartItem(
-              id: value.id,
+              productId: value.productId,
               name: value.name,
               pricePerProduct: value.pricePerProduct,
-              quantity: quantity));
+              quantity: value.quantity + quantity,
+              img: value.img));
     } else {
       _cart.putIfAbsent(
           productId,
           () => CartItem(
-              id: DateTime.now().toString(),
+              productId: productId,
               name: name,
               pricePerProduct: price,
-              quantity: quantity));
+              quantity: quantity,
+              img: img));
     }
+    notifyListeners();
+  }
+
+  void updateQuantity(int productId, int quantity) {
+    _cart.update(
+        productId,
+        (value) => CartItem(
+            productId: value.productId,
+            name: value.name,
+            pricePerProduct: value.pricePerProduct,
+            quantity: quantity,
+            img: value.img));
+    notifyListeners();
+  }
+
+  void removeItem(int productId) {
+    _cart.remove(productId);
+    notifyListeners();
   }
 }

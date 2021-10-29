@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:supabase_store/providers/cart_provider.dart';
+import 'package:supabase_store/screens/cart_detail.dart';
+import 'package:supabase_store/widgets/badge.dart';
 import 'package:supabase_store/widgets/product_list.dart';
 import 'package:supabase_store/widgets/products_carousel.dart';
 
 enum MenuOptions { filter, shop, other }
 
 class ProductOverviewScreeen extends StatelessWidget {
+  static const String routeName = "/home";
   const ProductOverviewScreeen({Key? key}) : super(key: key);
 
   @override
@@ -26,6 +31,15 @@ class ProductOverviewScreeen extends StatelessWidget {
             ),
           ),
           actions: [
+            Consumer<CartProvider>(
+              builder: (ctx, cart, ch) =>
+                  Badge(child: ch!, value: cart.itemCount.toString()),
+              child: IconButton(
+                  onPressed: () => {
+                        Navigator.pushNamed(context, CartDetailScreen.routeName)
+                      },
+                  icon: const Icon(Icons.shopping_basket)),
+            ),
             PopupMenuButton(
               color: Theme.of(context).colorScheme.background,
               onSelected: (MenuOptions value) => {},
@@ -44,7 +58,7 @@ class ProductOverviewScreeen extends StatelessWidget {
                 ),
               ],
               icon: const Icon(Icons.more_vert),
-            )
+            ),
           ],
         ),
         backgroundColor: Colors.white,
