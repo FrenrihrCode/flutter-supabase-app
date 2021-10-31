@@ -29,11 +29,28 @@ class CartDetailScreen extends StatelessWidget {
           ),
         ),
         body: cart.isNotEmpty
-            ? ListView.builder(
-                itemCount: cart.length,
-                itemBuilder: (ctx, i) => CartItemWidget(item: cart[i]))
-            : const Card(
-                child: Text("Tú lista de pedidos esta vacía."),
-              ));
+            ? Container(
+                padding: const EdgeInsets.only(top: 10),
+                child: ListView.builder(
+                    itemCount: cart.length,
+                    itemBuilder: (ctx, i) => CartItemWidget(item: cart[i])),
+              )
+            : Container(
+                padding: const EdgeInsets.all(20),
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.shopping_basket,
+                      size: 54,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Tú lista de pedidos esta vacía.",
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  ],
+                )));
   }
 }

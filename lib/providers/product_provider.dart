@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_store/models/product.dart';
 
 class ProductProvider with ChangeNotifier {
+  String _currentCategory = "test";
   final List<Product> _products = [
     Product(
         id: 1,
@@ -30,14 +31,43 @@ class ProductProvider with ChangeNotifier {
         available: true,
         img:
             "https://cdn0.iconfinder.com/data/icons/business-and-finance-31/244/icon-208-512.png"),
+    Product(
+        id: 4,
+        name: "Product 4",
+        description: "Description of Product 4",
+        category: "lana",
+        price: 73.25,
+        available: true,
+        img:
+            "https://cdn0.iconfinder.com/data/icons/business-and-finance-31/244/icon-208-512.png"),
+    Product(
+        id: 5,
+        name: "Product 5",
+        description: "Description of Product 5",
+        category: "lana",
+        price: 7.35,
+        available: true,
+        img:
+            "https://cdn0.iconfinder.com/data/icons/business-and-finance-31/244/icon-208-512.png"),
   ];
 
   List<Product> get products {
-    return [..._products];
+    var productsFromCategory =
+        _products.where((product) => product.category == _currentCategory);
+    return [...productsFromCategory];
+  }
+
+  String get categorySelected {
+    return _currentCategory;
   }
 
   Product findById(int id) {
     return _products.firstWhere((element) => element.id == id);
+  }
+
+  void changeCategory(String newCategory) {
+    _currentCategory = newCategory;
+    notifyListeners();
   }
 
   void addProduct(Product product) {

@@ -12,7 +12,8 @@ class ProductList extends StatelessWidget {
     final List<Product> productList = context.watch<ProductProvider>().products;
 
     return GridView.builder(
-        primary: true,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         padding: const EdgeInsets.all(10.0),
         itemCount: productList.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

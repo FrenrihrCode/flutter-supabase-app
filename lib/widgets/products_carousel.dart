@@ -10,21 +10,19 @@ class ProductsCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Product> productList = context.read<ProductProvider>().products;
+    final List<Product> productList = context.watch<ProductProvider>().products;
 
-    return CarouselSlider(
-      items: productList.map((product) {
-        return Builder(
-            builder: (BuildContext builder) => Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: ProductItem(product: product),
-                ));
-      }).toList(),
-      options: CarouselOptions(
-          enlargeCenterPage: true,
-          aspectRatio: 2 / 1.5,
-          viewportFraction: 0.55,
-          height: 250),
-    );
+    return CarouselSlider.builder(
+        options: CarouselOptions(
+            enlargeCenterPage: true,
+            aspectRatio: 2 / 1.5,
+            viewportFraction: 0.55,
+            height: 250),
+        itemCount: productList.length,
+        itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: ProductItem(product: productList[itemIndex]),
+            ));
   }
 }

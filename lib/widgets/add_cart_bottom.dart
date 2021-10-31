@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:supabase_store/providers/cart_provider.dart';
+import 'package:supabase_store/widgets/modal_quantity.dart';
 
 class AddToCartBottom extends StatelessWidget {
   final int productId;
@@ -15,6 +14,18 @@ class AddToCartBottom extends StatelessWidget {
       required this.price,
       required this.img})
       : super(key: key);
+
+  void _showBottomModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+        builder: (BuildContext context) {
+          return ModalQuantity(
+              productId: productId, name: name, price: price, img: img);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +53,7 @@ class AddToCartBottom extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                context
-                    .read<CartProvider>()
-                    .addItemToCart(productId, name, price, 1, img);
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("Producto añadido a tu lista de pedidos.")));
+                _showBottomModal(context);
               },
               child: Text(
                 "+ Añadir al carrito",
@@ -72,12 +79,7 @@ class AddToCartBottom extends StatelessWidget {
             ),
             child: IconButton(
                 onPressed: () {
-                  context
-                      .read<CartProvider>()
-                      .addItemToCart(productId, name, price, 1, img);
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content:
-                          Text("Producto añadido a tu lista de pedidos.")));
+                  _showBottomModal(context);
                 },
                 iconSize: 36,
                 padding: const EdgeInsets.all(12),
